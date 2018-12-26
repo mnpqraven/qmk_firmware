@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
@@ -17,3 +18,9 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 TAP_DANCE_ENABLE=yes
 
+=======
+RGBLIGHT_ENABLE = yes
+NKRO_ENABLE = yes            # USB Nkey Rollover
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+TAP_DANCE_ENABLE = yes
+>>>>>>> solved the issue from (ee3a9ab), compiles properly now
