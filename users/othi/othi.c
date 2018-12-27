@@ -6,6 +6,14 @@ void eeconfig_init_users(void) {
 #else
   #define OTHI_UNICODE_MODE 1
 #endif
+
+void eeconfig_init_user(void) {
+  #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    set_unicode_input_mode(OTHI_UNICODE_MODE);
+    get_unicode_input_mode();
+  #else
+    eeprom_update_byte(EECONFIG_UNICODEMODE, OTHI_UNICODE_MODE);
+  #endif
 }
 
 //void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
