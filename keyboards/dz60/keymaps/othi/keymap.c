@@ -12,8 +12,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GRV,       KC_MPRV,  KC_MNXT, KC_MPLY,    KC_END,      KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_HOME,    KC_F11,  KC_F12,  RESET, KC_INS,
       LGUI(KC_TAB),          _______,    LCTL(KC_RGHT),  _______,    _______,    _______,    _______,    KC_UP,    KC_PGUP,    _______,    _______,     _______, TG(CL), KC_BSPC,
       _______,            KC_LEFT,    _______,    KC_RGHT,      _______,    KC_PGDN,    KC_LEFT,   KC_DOWN,   KC_RGHT,     _______,    KC_ENT,  KC_QUOT, KC_LGUI,
-      KC_LSFT,_______,    _______,    KC_LOCK,    _______,      _______,    LCTL(KC_LEFT),    _______,    _______,    _______,    _______,    _______,    TG(VI_MODE), TO(CL),
-      KC_LCTL,    KC_LGUI,         KC_LALT,         _______,         KC_SPC,    _______,      KC_LALT,   KC_LGUI, _______,  KC_DOWN, RESET
+      KC_LSFT,_______,    _______,    _______,    _______,      _______,    LCTL(KC_LEFT),    _______,    _______,    _______,    _______,    _______,    TG(VI_MODE), TO(CL),
+      KC_LCTL,    CL_LGUI,         KC_LALT,         _______,         KC_SPC,    _______,      KC_LALT,   KC_LGUI, _______,  KC_DOWN, RESET
       ),
 
   [VI_MODE] = LAYOUT(
@@ -21,11 +21,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_BSPC,          _______,    LSFT(LCTL(KC_RGHT)),  _______,    _______,    _______,    _______,    LSFT(KC_UP),    _______,    _______,    _______,     _______, TG(CL), KC_BSPC,
       _______,            _______,    _______,    _______,      _______,    _______,    LSFT(LCTL(KC_LEFT)),   LSFT(KC_DOWN),   LSFT(KC_RGHT),     _______,    KC_SCLN,  KC_QUOT, KC_LGUI,
       OSM(MOD_LSFT),_______,  _______,  _______, _______,      _______,    LSFT(LCTL(KC_LEFT)),    _______,    _______,    _______,    _______,    KC_SLSH,    OSM(MOD_LSFT), TO(CL),
-      OSM(MOD_LCTL),    KC_LGUI,         KC_LALT,         _______,         KC_SPC,    _______,      KC_LALT,   KC_LGUI, _______,  KC_DOWN, RESET
+      OSM(MOD_LCTL),    _______,         KC_LALT,         _______,         KC_SPC,    _______,      KC_LALT,   KC_LGUI, _______,  KC_DOWN, RESET
       ),
   [ACCENT] = LAYOUT(
       _______,       KC_F1,  KC_F2, KC_F3,    KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,  KC_F12,  _______, _______,
-      _______,         RGB_TOG,    RGB_MODE_PLAIN,  _______,    _______,    _______,    _______,    _______,    DE_UE,    _______,    _______,     _______, _______, _______,
+      _______,         RGB_TOG,    RGB_LYR,  RGB_RMOD,    RGB_MOD,    _______,    _______,    _______,    DE_UE,    _______,    _______,     _______, _______, _______,
       _______,            DE_AE,    _______,    DE_SS,      _______,    _______,    _______,   _______,   _______,     _______,    DE_OE,  _______, _______,
       OSL(ACCENT_CAP), _______,  _______,  _______, _______,      _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, TO(CL),
       _______,    _______,         _______,         _______,         _______,   _______,      _______,   _______, _______,  _______, RESET

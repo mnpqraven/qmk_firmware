@@ -28,5 +28,12 @@ void eeconfig_init_user(void) {
     get_unicode_input_mode();
   #else
     eeprom_update_byte(EECONFIG_UNICODEMODE, OTHI_UNICODE_MODE);
-  #endif
+  #endif // (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+
+    user_config.rgb_layer_change = true; // We want this enabled by default
+    eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
+    // use the non noeeprom versions, to write these values to EEPROM too
+    rgblight_enable(); // Enable RGB by default
+    rgblight_sethsv_cyan();  // Set it to CYAN by default, refering to default case in rgb_light.c
+    rgblight_mode(1); // set to solid by default
 }

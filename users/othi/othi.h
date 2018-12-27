@@ -22,6 +22,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#ifdef RGBLIGHT_ENABLE
 //#include "rgblight.h"
 //#endif
+typedef union {
+  uint32_t raw;
+  struct {
+    bool     rgb_layer_change :1;
+  };
+} user_config_t;
+user_config_t user_config;
+
+//Custom Keycodes
+enum my_keycodes {
+  FOO = SAFE_RANGE,
+  EPRM,
+  RGB_LYR,
+  CL_LGUI,
+};
 
 //Layers Definition
 #define CL 0
