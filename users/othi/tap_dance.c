@@ -20,6 +20,7 @@ void dance_CTL_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
 void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
 	register_code (KC_LGUI);
+    rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1);
   } else {
     register_code (KC_LGUI);
 	layer_on(NM_MODE);
@@ -29,6 +30,7 @@ void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
 void dance_GUI_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_LGUI);
+    rgblight_sethsv_noeeprom_cyan(); rgblight_mode_noeeprom(1);
   } else {
     unregister_code (KC_LGUI);
 	layer_off(NM_MODE);
@@ -55,8 +57,8 @@ void dance_ALT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 void dance_SFT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-	register_code (KC_LSFT);
-	set_oneshot_mods(MOD_LSFT);
+    register_code (KC_LSFT);
+    rgblight_sethsv_noeeprom_red(); rgblight_mode_noeeprom(1);
   } else {
     register_code (KC_LSFT);
 	layer_on(NM_MODE);
