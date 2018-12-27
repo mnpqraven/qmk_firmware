@@ -14,6 +14,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,            KC_LEFT,    _______,    KC_RGHT,      _______,    KC_PGDN,    KC_LEFT,   KC_DOWN,   KC_RGHT,     _______,    KC_ENT,  KC_QUOT, KC_LGUI,
       KC_LSFT,_______,    _______,    _______,    _______,      _______,    LCTL(KC_LEFT),    _______,    _______,    _______,    _______,    _______,    TG(VI_MODE), TO(CL),
       KC_LCTL,    CL_LGUI,         KC_LALT,         _______,         KC_SPC,    _______,      KC_LALT,   KC_LGUI, _______,  KC_DOWN, RESET
+
       ),
 
   [VI_MODE] = LAYOUT(
