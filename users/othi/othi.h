@@ -59,3 +59,10 @@ enum tap_dancers {
   ALT_NM = 2,
   SFT_NM = 3,
 };
+
+#ifdef RGBLIGHT_ENABLE
+  //cyan color
+  #define OTHI_DEFAULT_R 180
+  #define OTHI_DEFAULT_G 255
+  #define OTHI_DEFAULT_B 255
+#endif
