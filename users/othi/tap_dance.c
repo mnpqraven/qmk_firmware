@@ -30,7 +30,7 @@ void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
 void dance_GUI_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_LGUI);
-    rgblight_sethsv_noeeprom_cyan(); rgblight_mode_noeeprom(1);
+    rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B); rgblight_mode_noeeprom(1);
   } else {
     unregister_code (KC_LGUI);
 	layer_off(NM_MODE);
@@ -68,6 +68,7 @@ void dance_SFT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
 void dance_SFT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_LSFT);
+    rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B); rgblight_mode_noeeprom(1);
   } else {
     unregister_code (KC_LSFT);
 	layer_off(NM_MODE);
