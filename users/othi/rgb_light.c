@@ -68,7 +68,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false; break;
         case F_ESC:
-            mods_pressed = get_mods(); // Check to see what mods are pressed
+			// Check to see what mods are pressed
+            mods_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
+                                         |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
             if (record->event.pressed) {
                 key_timer = timer_read();
                 layer_on(FNUM);
