@@ -24,7 +24,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         case ACCENT_CAP:
             if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1); }
             break;
-        default: //  for any other layers, or the default layer
+        default: //  for default layer, to change it go to othi.h
             if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B); rgblight_mode_noeeprom(1); }
             break;
     }
@@ -61,6 +61,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rgblight_sethsv_noeeprom_cyan(); rgblight_mode_noeeprom(1);
                 if (timer_elapsed(key_timer) < TAPPING_TERM) {
                     tap_code(KC_BSPC);
+                }
+            }
+            return false; break;
+        case AC_ESC:
+            if (record->event.pressed) {
+                key_timer = timer_read();
+                layer_on(ACCENT);
+                rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1);
+            } else {
+                layer_off(ACCENT);
+                rgblight_sethsv_noeeprom_cyan(); rgblight_mode_noeeprom(1);
+                if (timer_elapsed(key_timer) < TAPPING_TERM) {
+                    tap_code(KC_ESC);
                 }
             }
             return false; break;
