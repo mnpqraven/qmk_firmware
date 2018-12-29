@@ -35,6 +35,7 @@ enum my_keycodes {
   EPRM,
   RGB_LYR,
   CL_LGUI,
+  AC_ESC,
 };
 
 //Layers Definition
