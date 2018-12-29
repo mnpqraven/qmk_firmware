@@ -36,14 +36,15 @@ enum my_keycodes {
   EPRM,
   RGB_LYR,
   CL_LGUI,
-  AC_ESC,
+  F_ESC,
 };
 
+#define LIGHT_DEBOUNCE 75
 //Layers Definition
 #define CL 0
 #define NM_MODE 2
 #define VI_MODE 3
-#define FN3 4
+#define FNUM 4
 #define ACCENT 5
 #define ACCENT_CAP 6
 
@@ -60,6 +61,7 @@ enum tap_dancers {
   GUI_NM = 1,
   ALT_NM = 2,
   SFT_NM = 3,
+  LANG_IN = 4,
 };
 
 #ifdef RGBLIGHT_ENABLE
