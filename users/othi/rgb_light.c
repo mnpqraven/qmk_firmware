@@ -24,7 +24,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         case ACCENT_CAP:
             if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1); }
             break;
-        default: //  for default layer, to change it go to othi.h
+        default: //for default and other layers, to change it go to othi.h
             if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B); rgblight_mode_noeeprom(1); }
             break;
     }
@@ -42,12 +42,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 key_timer = timer_read();
                 register_code(KC_LGUI);
+                _delay_ms(LIGHT_DEBOUNCE);
                 rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1);
             } else {
                 unregister_code(KC_LGUI);
-                rgblight_sethsv_noeeprom_cyan(); rgblight_mode_noeeprom(1);
+                rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_B, OTHI_DEFAULT_B); rgblight_mode_noeeprom(1);
                 if (timer_elapsed(key_timer) < TAPPING_TERM) {
-                   tap_code(KC_TAB);
+                    tap_code(KC_TAB);
                 }
             }
             return false; break;
@@ -55,23 +56,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 key_timer = timer_read();
                 register_code(KC_LCTL);
+                _delay_ms(LIGHT_DEBOUNCE);
                 rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1);
             } else {
                 unregister_code(KC_LCTL);
-                rgblight_sethsv_noeeprom_cyan(); rgblight_mode_noeeprom(1);
+                rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_B, OTHI_DEFAULT_B); rgblight_mode_noeeprom(1);
                 if (timer_elapsed(key_timer) < TAPPING_TERM) {
                     tap_code(KC_BSPC);
                 }
             }
             return false; break;
-        case AC_ESC:
+        case F_ESC:
             if (record->event.pressed) {
                 key_timer = timer_read();
-                layer_on(ACCENT);
-                rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1);
+                layer_on(FNUM);
+                //rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1);
             } else {
-                layer_off(ACCENT);
-                rgblight_sethsv_noeeprom_cyan(); rgblight_mode_noeeprom(1);
+                layer_off(FNUM);
+                rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_B, OTHI_DEFAULT_B); rgblight_mode_noeeprom(1);
                 if (timer_elapsed(key_timer) < TAPPING_TERM) {
                     tap_code(KC_ESC);
                 }
@@ -81,10 +83,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 key_timer = timer_read();
                 register_code(KC_LGUI);
+                _delay_ms(LIGHT_DEBOUNCE);
                 rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1);
             } else {
                 unregister_code(KC_LGUI);
-                rgblight_sethsv_noeeprom_cyan(); rgblight_mode_noeeprom(1);
+                rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_B, OTHI_DEFAULT_B); rgblight_mode_noeeprom(1);
             }
             return true; break;
         case EPRM:
