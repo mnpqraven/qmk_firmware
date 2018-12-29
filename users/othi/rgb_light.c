@@ -36,6 +36,7 @@ void matrix_scan_user(void) {
 }
 
 uint16_t key_timer;
+static uint8_t mods_pressed;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MT(MOD_LGUI,KC_TAB):
@@ -67,6 +68,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false; break;
         case F_ESC:
+            mods_pressed = get_mods(); // Check to see what mods are pressed
             if (record->event.pressed) {
                 key_timer = timer_read();
                 layer_on(FNUM);
@@ -75,7 +77,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(FNUM);
                 rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_B, OTHI_DEFAULT_B); rgblight_mode_noeeprom(1);
                 if (timer_elapsed(key_timer) < TAPPING_TERM) {
+                    if (mods_pressed) {
+                        tap_code(KC_GRV);
+                    } else {
                     tap_code(KC_ESC);
+                    }
                 }
             }
             return false; break;
