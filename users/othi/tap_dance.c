@@ -76,7 +76,7 @@ void x_finished (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
   switch (xtap_state.state) {
     case SINGLE_TAP: register_code(KC_X); break;
-    case SINGLE_HOLD: register_code(KC_LCTRL); break;
+    case SINGLE_HOLD: register_code(KC_LCTL); break;
     case DOUBLE_TAP: register_code(KC_ESC); break;
     case DOUBLE_HOLD: register_code(KC_LALT); break;
     case DOUBLE_SINGLE_TAP: register_code(KC_X); unregister_code(KC_X); register_code(KC_X);
@@ -89,7 +89,7 @@ void x_finished (qk_tap_dance_state_t *state, void *user_data) {
 void x_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (xtap_state.state) {
     case SINGLE_TAP: unregister_code(KC_X); break;
-    case SINGLE_HOLD: unregister_code(KC_LCTRL); break;
+    case SINGLE_HOLD: unregister_code(KC_LCTL); break;
     case DOUBLE_TAP: unregister_code(KC_ESC); break;
     case DOUBLE_HOLD: unregister_code(KC_LALT);
     case DOUBLE_SINGLE_TAP: unregister_code(KC_X);
@@ -127,13 +127,17 @@ void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_CTL_NM_each (qk_tap_dance_state_t *state, void *user_data) {
-    //if (state->count == 2) {
+	//version 1: 1st backspace starts at double tap
     if (state->count >= 2) {
     tap_code(KC_BSPC);
+    }
+	//version2: double tap produces 2 backspaces, so muscle memory remains but you might have to retype a character
+    //if (state->count == 2) {
+    //tap_code(KC_BSPC);
     //tap_code(KC_BSPC);
     //} else if (state->count > 2) {
     //tap_code(KC_BSPC);
-    }
+	//}
 }
 void dance_CTL_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
@@ -172,42 +176,91 @@ void dance_GUI_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_ALT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-	register_code (KC_LALT);
-  } else {
-    register_code (KC_LALT);
-	layer_on(NM_MODE);
-  }
+    xtap_state.state = cur_dance(state);
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            register_code (KC_LALT);
+            break;
+        case SINGLE_HOLD:
+            register_code (KC_LALT);
+            break;
+        case DOUBLE_HOLD:
+            register_code (KC_LALT);
+            layer_on(NM_MODE);
+            break;
+        case TRIPLE_HOLD:
+            register_code (KC_LALT);
+            register_code (KC_LCTL);
+            layer_on(NM_MODE);
+            rgblight_sethsv_noeeprom_orange(); rgblight_mode_noeeprom(1);
+    }
 }
 
 void dance_ALT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code (KC_LALT);
-  } else {
-    unregister_code (KC_LALT);
-	layer_off(NM_MODE);
-  }
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            unregister_code (KC_LALT);
+            break;
+        case SINGLE_HOLD:
+            unregister_code (KC_LALT);
+            break;
+        case DOUBLE_HOLD:
+            unregister_code (KC_LALT);
+            layer_off(NM_MODE);
+            break;
+        case TRIPLE_HOLD:
+            unregister_code (KC_LALT);
+            unregister_code (KC_LCTL);
+            layer_off(NM_MODE);
+    }
+    xtap_state.state = 0;
 }
 
 void dance_SFT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_LSFT);
-	_delay_ms(LIGHT_DEBOUNCE);
-    //rgblight_sethsv_noeeprom_orange(); rgblight_mode_noeeprom(1);
-  } else {
-    register_code (KC_LSFT);
-	layer_on(NM_MODE);
-  }
+    xtap_state.state = cur_dance(state);
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            register_code (KC_LSFT);
+            rgblight_sethsv_noeeprom_orange(); rgblight_mode_noeeprom(1);
+            break;
+        case SINGLE_HOLD:
+            register_code (KC_LSFT);
+            rgblight_sethsv_noeeprom_orange(); rgblight_mode_noeeprom(1);
+            break;
+        case DOUBLE_HOLD:
+            register_code (KC_LSFT);
+            layer_on(NM_MODE);
+            break;
+        case TRIPLE_HOLD:
+            register_code (KC_LSFT);
+            register_code (KC_LCTL);
+            layer_on(NM_MODE);
+            rgblight_sethsv_noeeprom_yellow(); rgblight_mode_noeeprom(1);
+            break;
+    }
 }
 
 void dance_SFT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code (KC_LSFT);
-    rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B); rgblight_mode_noeeprom(1);
-  } else {
-    unregister_code (KC_LSFT);
-	layer_off(NM_MODE);
-  }
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            unregister_code (KC_LSFT);
+            rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B); rgblight_mode_noeeprom(1);
+            break;
+        case SINGLE_HOLD:
+            unregister_code (KC_LSFT);
+            rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B); rgblight_mode_noeeprom(1);
+            break;
+        case DOUBLE_HOLD:
+            unregister_code (KC_LSFT);
+            layer_off(NM_MODE);
+            break;
+        case TRIPLE_HOLD:
+            unregister_code (KC_LSFT);
+            unregister_code (KC_LCTL);
+            layer_off(NM_MODE);
+            break;
+    }
+    xtap_state.state = 0;
 }
 
 //NOT FINISHED. DO NOT USE

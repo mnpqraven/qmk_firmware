@@ -6,7 +6,7 @@ void matrix_init_user(void) {
     // Set default layer, if enabled
     if (user_config.rgb_layer_change) {
         rgblight_enable_noeeprom();
-        rgblight_sethsv_noeeprom_cyan();
+        rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B);
         rgblight_mode_noeeprom(1);
     }
 }
@@ -68,7 +68,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false; break;
         case F_ESC:
-			// Check to see what mods are pressed
+            // Check to see what mods are pressed
             mods_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
                                          |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
             if (record->event.pressed) {
