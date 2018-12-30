@@ -56,14 +56,20 @@ enum my_keycodes {
 #define DE_AE_CAP UC(0x00C4)
 #define DE_OE_CAP UC(0x00D6)
 #define DE_UE_CAP UC(0x00DC)
+
+//Tap Dance Keycodes
 enum tap_dancers {
   CTL_NM = 0,
   GUI_NM = 1,
   ALT_NM = 2,
   SFT_NM = 3,
   LANG_IN = 4,
+  QUAD_TEST = 5,
+  TD_GRAVE = 6,
+  X_CTL = 7,  //QMK example of quad function tap dance, sends x/control/esc/alt respectively on tap/hold/double tap/double hold
 };
 
+//Default RGB Color
 #ifdef RGBLIGHT_ENABLE
   //cyan color
   #define OTHI_DEFAULT_R 180
