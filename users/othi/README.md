@@ -31,11 +31,11 @@
 ### Modifiers and Tap Dance keys
 **LHS:**
 
-- Any Tap Dance key with the format of `TD(XXX_NM)` act as normal XXX modifier upon hold, but will hold **and** put you to `NM_MODE` when double click hold(a tap before the hold)(eg you can produce `Alt + PgUp` by pressing `Alt + Alt + U`)
+- Any Tap Dance key with the format of `TD(XXX_NM)` act as normal XXX modifier upon hold, but will hold **and** put you to `NM_MODE` when double hold(a tap before the hold)(eg you can produce `Alt + PgUp` by pressing `Alt + Alt + U`). Triple holding holds both XXX and Control because the control button is not presented on the HHKB keyboards
 
 - `KC_TAB` acts as both `KC_TAB` on tap and `KC_LGUI` on hold
 
-- R3 CapsLock acts as both `KC_BSPC` on tap and `KC_LCTL` on hold
+- R3 Caps Lock sends Control on tap/hold, and sends Backspace on doubles and hammerings
 
 - Holding `KC_Q` also puts you into `NM_MODE`
 

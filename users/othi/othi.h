@@ -72,7 +72,7 @@ enum tap_dancers {
 //Default RGB Color
 #ifdef RGBLIGHT_ENABLE
   //cyan color
-  #define OTHI_DEFAULT_R 180
+  #define OTHI_DEFAULT_R 0
   #define OTHI_DEFAULT_G 255
   #define OTHI_DEFAULT_B 255
 #endif
