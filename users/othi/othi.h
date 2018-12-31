@@ -14,8 +14,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#pragma once
 #include "quantum.h"
 #include "eeprom.h"
+#include "process_records.h"
 
 //i don't think i need this ?
 //TODO: test rgb without this snippet
@@ -39,7 +41,6 @@ enum my_keycodes {
   F_ESC,
 };
 
-#define LIGHT_DEBOUNCE 75
 //Layers Definition
 #define CL 0
 #define NM_MODE 2
@@ -47,6 +48,7 @@ enum my_keycodes {
 #define FNUM 4
 #define ACCENT 5
 #define ACCENT_CAP 6
+#define BRCKS 7
 
 //Unicode Definitions
 #define DE_AE     UC(0x00E4)
@@ -59,20 +61,24 @@ enum my_keycodes {
 
 //Tap Dance Keycodes
 enum tap_dancers {
-  CTL_NM = 0,
-  GUI_NM = 1,
-  ALT_NM = 2,
-  SFT_NM = 3,
-  LANG_IN = 4,
-  QUAD_TEST = 5,
-  TD_GRAVE = 6,
-  X_CTL = 7,  //QMK example of quad function tap dance, sends x/control/esc/alt respectively on tap/hold/double tap/double hold
+  CTL_NM,
+  GUI_NM,
+  ALT_NM,
+  SFT_NM,
+  LANG_IN,
+  X_CTL,  //QMK example of quad function tap dance, sends x/control/esc/alt respectively on tap/hold/double tap/double hold
+  R_BRC,
+  S_BRC,
+  A_BRC,
+  QUOT,
 };
 
 //Default RGB Color
 #ifdef RGBLIGHT_ENABLE
   //cyan color
+  #define LIGHT_DEBOUNCE 75
   #define OTHI_DEFAULT_R 0
   #define OTHI_DEFAULT_G 255
   #define OTHI_DEFAULT_B 255
+  #define OTHI_DEFAULT_MODE RGBLIGHT_MODE_BREATHING
 #endif
