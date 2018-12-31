@@ -1,3 +1,4 @@
+#pragma once
 #include "othi.h"
 #ifdef RGBLIGHT_ENABLE
   #include "rgblight.h"
