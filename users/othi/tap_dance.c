@@ -72,32 +72,6 @@ static tap xtap_state = {
     .state = 0
 };
 
-//QMK example of quad function tap dance, sends x/control/esc/alt respectively on tap/hold/double tap/double hold
-void x_finished (qk_tap_dance_state_t *state, void *user_data) {
-    xtap_state.state = cur_dance(state);
-    switch (xtap_state.state) {
-        case SINGLE_TAP: register_code(KC_X); break;
-        case SINGLE_HOLD: register_code(KC_LCTL); break;
-        case DOUBLE_TAP: register_code(KC_ESC); break;
-        case DOUBLE_HOLD: register_code(KC_LALT); break;
-        case DOUBLE_SINGLE_TAP: register_code(KC_X); unregister_code(KC_X); register_code(KC_X);
-                                //Last case is for fast typing. Assuming your key is `f`:
-                                //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
-                                //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
-    }
-}
-
-void x_reset (qk_tap_dance_state_t *state, void *user_data) {
-    switch (xtap_state.state) {
-        case SINGLE_TAP: unregister_code(KC_X); break;
-        case SINGLE_HOLD: unregister_code(KC_LCTL); break;
-        case DOUBLE_TAP: unregister_code(KC_ESC); break;
-        case DOUBLE_HOLD: unregister_code(KC_LALT);
-        case DOUBLE_SINGLE_TAP: unregister_code(KC_X);
-    }
-    xtap_state.state = 0;
-}
-
 void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
@@ -331,18 +305,23 @@ void dance_QUOT_finished(qk_tap_dance_state_t *state, void *user_data) {
     shift_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)));
     switch (xtap_state.state) {
         case SINGLE_TAP: register_code(KC_QUOT); break;
-        case DOUBLE_TAP: register_code(KC_QUOT); unregister_code(KC_QUOT); register_code(KC_QUOT);
-                         if (shift_pressed) { //checks if Shifted
-                             unregister_mods(MOD_BIT(KC_LSFT));
-                             SEND_STRING("not supposed to be shifted");
+        case DOUBLE_TAP: tap_code(KC_QUOT); tap_code(KC_QUOT);
+                         if (shift_pressed) { //checks if Shift is held
+                             //unregister_mods(MOD_BIT(KC_LSFT)); //this doesn't work, further testing required
+                             //this is to remove the currently held mod key so pressing left won't select the right quote
+                             clear_keyboard();
                          }
-                         register_code(KC_LEFT); break;
+                         tap_code(KC_LEFT);
+                         if (shift_pressed) {
+                             //goes back to shifted as we are still holding down SFT_NM
+                             register_code(KC_LSFT);
+                         }
+                         break;
     }
 }
 void dance_QUOT_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP: unregister_code(KC_LSFT); unregister_code(KC_QUOT); break;
-        case DOUBLE_TAP: unregister_code(KC_LSFT); unregister_code(KC_QUOT); unregister_code(KC_LEFT); break;
     }
     xtap_state.state = 0;
 }
