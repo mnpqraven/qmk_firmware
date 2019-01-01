@@ -28,6 +28,13 @@
 
 	Function row and Unicode characters
 
+- **FNUM**
+
+	Just funtion keys on the numrow,nothing fancy
+
+- **BRCKS**
+
+	Brackets on the home row
 ### Modifiers and Tap Dance keys
 **LHS:**
 
