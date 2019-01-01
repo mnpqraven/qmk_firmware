@@ -1,5 +1,6 @@
 #include "othi.h"
 
+static uint8_t shift_pressed;
 enum {
     SINGLE_TAP = 1,
     SINGLE_HOLD = 2,
@@ -219,8 +220,8 @@ void dance_SFT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
 #endif
             break;
         case DOUBLE_HOLD:
-            register_code (KC_LSFT);
             layer_on(NM_MODE);
+            register_code (KC_LSFT);
             break;
         case TRIPLE_HOLD:
             register_code (KC_LSFT);
@@ -248,8 +249,8 @@ void dance_SFT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
 #endif
             break;
         case DOUBLE_HOLD:
-            unregister_code (KC_LSFT);
             layer_off(NM_MODE);
+            unregister_code (KC_LSFT);
             break;
         case TRIPLE_HOLD:
             unregister_code (KC_LSFT);
@@ -327,15 +328,21 @@ void dance_R_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 void dance_QUOT_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
+    shift_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)));
     switch (xtap_state.state) {
         case SINGLE_TAP: register_code(KC_QUOT); break;
-        case DOUBLE_TAP: register_code(KC_QUOT); unregister_code(KC_QUOT); register_code(KC_QUOT); register_code(KC_LEFT); break;
+        case DOUBLE_TAP: register_code(KC_QUOT); unregister_code(KC_QUOT); register_code(KC_QUOT);
+                         if (shift_pressed) { //checks if Shifted
+                             unregister_mods(MOD_BIT(KC_LSFT));
+                             SEND_STRING("not supposed to be shifted");
+                         }
+                         register_code(KC_LEFT); break;
     }
 }
 void dance_QUOT_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
-        case SINGLE_TAP: unregister_code(KC_QUOT); break;
-        case DOUBLE_TAP: unregister_code(KC_QUOT); unregister_code(KC_LEFT); break;
+        case SINGLE_TAP: unregister_code(KC_LSFT); unregister_code(KC_QUOT); break;
+        case DOUBLE_TAP: unregister_code(KC_LSFT); unregister_code(KC_QUOT); unregister_code(KC_LEFT); break;
     }
     xtap_state.state = 0;
 }
