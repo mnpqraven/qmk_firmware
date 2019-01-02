@@ -109,6 +109,8 @@ void dance_CTL_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
 void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
+        case SINGLE_TAP:
+            tap_code(KC_TAB); break;
         case SINGLE_HOLD:
             register_code(KC_LGUI);
 #ifdef RGBLIGHT_ENABLE
@@ -123,7 +125,6 @@ void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
             layer_on(NM_MODE); break;
     }
 }
-
 void dance_GUI_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_HOLD:
@@ -137,6 +138,15 @@ void dance_GUI_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
             layer_off(NM_MODE); break;
     }
     xtap_state.state = 0;
+}
+void dance_GUI_NM_each (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 3) {
+        tap_code(KC_TAB);
+        tap_code(KC_TAB);
+    }
+    if (state->count > 3) {
+        tap_code(KC_TAB);
+    }
 }
 // ALT_NM
 void dance_ALT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
@@ -343,7 +353,7 @@ void dance_QUOT_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [CTL_NM] = ACTION_TAP_DANCE_FN_ADVANCED (dance_CTL_NM_each, dance_CTL_NM_finished, dance_CTL_NM_reset),
-    [GUI_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_GUI_NM_finished, dance_GUI_NM_reset),
+    [GUI_NM] = ACTION_TAP_DANCE_FN_ADVANCED (dance_GUI_NM_each, dance_GUI_NM_finished, dance_GUI_NM_reset),
     [ALT_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_ALT_NM_finished, dance_ALT_NM_reset),
     [SFT_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_SFT_NM_finished, dance_SFT_NM_reset),
     [LANG_IN] = ACTION_TAP_DANCE_FN_ADVANCED (dance_LANG_IN_each, dance_LANG_IN_finished, dance_LANG_IN_reset),
