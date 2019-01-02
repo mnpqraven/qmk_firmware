@@ -17,6 +17,7 @@ typedef struct {
     int state;
 } tap;
 
+// Tapping order init
 int cur_dance (qk_tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed)  return SINGLE_TAP;
@@ -72,6 +73,7 @@ static tap xtap_state = {
     .state = 0
 };
 
+// CTL_NM
 void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
@@ -81,7 +83,6 @@ void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
                           layer_on(NM_MODE); break;
     }
 }
-
 void dance_CTL_NM_each (qk_tap_dance_state_t *state, void *user_data) {
     //version 1: 1st backspace starts at double tap
     if (state->count >= 2) {
@@ -99,12 +100,12 @@ void dance_CTL_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP: unregister_code(KC_LCTL); break;
         case SINGLE_HOLD: unregister_code(KC_LCTL); break;
-        case DOUBLE_HOLD: unregister_code(KC_LCTL);
-                          layer_off(NM_MODE); break;
+        default: unregister_code(KC_LCTL);
+                 layer_off(NM_MODE); break;
     }
     xtap_state.state = 0;
 }
-
+// GUI_NM
 void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
@@ -114,6 +115,9 @@ void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
             rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1);
 #endif
             break;
+        case DOUBLE_TAP:
+            register_code (KC_LGUI);
+            tap_code(KC_TAB);
         case DOUBLE_HOLD:
             register_code (KC_LGUI);
             layer_on(NM_MODE); break;
@@ -128,13 +132,13 @@ void dance_GUI_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
             rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B); rgblight_mode_noeeprom(OTHI_DEFAULT_MODE);
 #endif
             break;
-        case DOUBLE_HOLD:
+        default:
             unregister_code (KC_LGUI);
             layer_off(NM_MODE); break;
     }
     xtap_state.state = 0;
 }
-
+// ALT_NM
 void dance_ALT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
@@ -174,10 +178,14 @@ void dance_ALT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
             unregister_code (KC_LALT);
             unregister_code (KC_LCTL);
             layer_off(NM_MODE);
+        default:
+            unregister_code (KC_LALT);
+            unregister_code (KC_LCTL);
+            layer_off(NM_MODE);
     }
     xtap_state.state = 0;
 }
-
+// SFT_NM
 void dance_SFT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
@@ -231,6 +239,9 @@ void dance_SFT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
             unregister_code (KC_LCTL);
             layer_off(NM_MODE);
             break;
+        default:
+            unregister_code(KC_LSFT);
+            layer_off(NM_MODE);
     }
     xtap_state.state = 0;
 }
@@ -259,6 +270,7 @@ void dance_LANG_IN_each(qk_tap_dance_state_t *state, void *user_data) {
     tap_code(KC_SPC);
 }
 
+// A_BRC abbv. arrow backets {}
 void dance_A_BRC_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
@@ -273,6 +285,7 @@ void dance_A_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
     xtap_state.state = 0;
 }
+// S_BRC abbv. square brackets []
 void dance_S_BRC_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
@@ -286,6 +299,7 @@ void dance_S_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP: unregister_code(KC_LBRC); unregister_code(KC_RBRC); unregister_code(KC_LEFT); break;
     }
 }
+// R_BRC abbv. round brackets ()
 void dance_R_BRC_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
@@ -300,6 +314,7 @@ void dance_R_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
     xtap_state.state = 0;
 }
+// QUOT abbv. quotation marks '' ""
 void dance_QUOT_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     shift_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)));
