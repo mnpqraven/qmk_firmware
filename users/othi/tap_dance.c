@@ -78,7 +78,11 @@ void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP: register_code(KC_LCTL); break;
-        case SINGLE_HOLD: register_code(KC_LCTL); break;
+        case SINGLE_HOLD: register_code(KC_LCTL);
+#ifdef RGBLIGHT_ENABLE
+                          rgblight_sethsv_noeeprom_azure(); rgblight_mode_noeeprom(1);
+#endif
+                          break;
         case DOUBLE_HOLD: register_code (KC_LCTL);
                           layer_on(NM_MODE); break;
     }
@@ -99,7 +103,11 @@ void dance_CTL_NM_each (qk_tap_dance_state_t *state, void *user_data) {
 void dance_CTL_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP: unregister_code(KC_LCTL); break;
-        case SINGLE_HOLD: unregister_code(KC_LCTL); break;
+        case SINGLE_HOLD: unregister_code(KC_LCTL);
+#ifdef RGBLIGHT_ENABLE
+            rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B); rgblight_mode_noeeprom(OTHI_DEFAULT_MODE);
+#endif
+                          break;
         default: unregister_code(KC_LCTL);
                  layer_off(NM_MODE); break;
     }
@@ -111,15 +119,15 @@ void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
             tap_code(KC_TAB); break;
+        case DOUBLE_TAP: //befor SINGLE_HOLD to avoid light flicker
+            register_code (KC_LGUI);
+            tap_code(KC_TAB); break;
         case SINGLE_HOLD:
             register_code(KC_LGUI);
 #ifdef RGBLIGHT_ENABLE
             rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1);
 #endif
             break;
-        case DOUBLE_TAP:
-            register_code (KC_LGUI);
-            tap_code(KC_TAB);
         case DOUBLE_HOLD:
             register_code (KC_LGUI);
             layer_on(NM_MODE); break;
@@ -201,9 +209,9 @@ void dance_SFT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
             register_code (KC_LSFT);
-#ifdef RGBLIGHT_ENABLE
-            rgblight_sethsv_noeeprom_orange(); rgblight_mode_noeeprom(1);
-#endif
+//#ifdef RGBLIGHT_ENABLE
+//            rgblight_sethsv_noeeprom_orange(); rgblight_mode_noeeprom(1);
+//#endif
             break;
         case SINGLE_HOLD:
             register_code (KC_LSFT);
