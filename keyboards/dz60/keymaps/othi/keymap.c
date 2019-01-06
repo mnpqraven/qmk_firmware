@@ -21,14 +21,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       TD(GUI_NM),        LT(NM_MODE,KC_Q),    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,     KC_LBRC, KC_RBRC, KC_BSPC,
       TD(CTL_NM),        KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,           KC_QUOT, KC_ENT,
       TD(SFT_NM), _______,         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    MT(MOD_LCTL,KC_COMM), MT(MOD_LSFT,KC_DOT),  MT(MOD_LALT,KC_SLSH),        LM(CL,MOD_LGUI|MOD_LSFT), MO(NM_MODE),
-      MO(BRCKS),    TD(GUI_NM),         TD(ALT_NM),         _______,         KC_SPC,    _______,      LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT),  _______,  TT(VI_MODE), LM(CL,MOD_LGUI|MOD_LSFT)
+      KC_LCTL,    MO(BRCKS),         TD(ALT_NM),         _______,         KC_SPC,    _______,      _______, LM(CL,MOD_LGUI|MOD_LALT),  _______,  OSL(ACCENT), LM(CL,MOD_LGUI|MOD_LSFT)
       ),
   [NM_MODE] = LAYOUT(
       KC_GRV,       KC_MPRV,  KC_MNXT, KC_MPLY,    KC_END,      KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_HOME,    KC_F11,  KC_F12,  RESET, KC_INS,
       LGUI(KC_TAB),          _______,    LCTL(KC_RGHT),  _______,    _______,    _______,    _______,    KC_UP,    KC_PGUP,    _______,    _______,     _______, TG(CL), KC_BSPC,
       _______,            KC_LEFT,    _______,    KC_RGHT,      _______,    KC_PGDN,    KC_LEFT,   KC_DOWN,   KC_RGHT,     _______,    KC_ENT,  KC_QUOT, KC_LGUI,
       KC_LSFT,_______,    _______,    _______,    _______,      _______,    LCTL(KC_LEFT),    _______,    _______,    _______,    _______,    _______,    TG(VI_MODE), TO(CL),
+<<<<<<< HEAD
       KC_LCTL,    CL_LGUI,         KC_LALT,         _______,         KC_SPC,    _______,      KC_LALT,   KC_LGUI, _______,  KC_DOWN, RESET
+=======
+      KC_LCTL,      CL_LGUI,           KC_LALT,            _______,         KC_SPC,    _______,      _______, _______,         _______,  _______,     RESET
+
+>>>>>>> dz60 keymap update
       ),
   [FNUM] = LAYOUT(
       _______,       KC_F1,  KC_F2, KC_F3,    KC_F4,    KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10,    KC_F11,  KC_F12,  _______, KC_CAPS,
@@ -63,6 +68,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,      _______,    _______,  _______,    _______,    _______,    _______,    TD(QUOT),    KC_U,    _______,    _______,     _______, _______, _______,
       _______,        _______,    _______,    _______,      _______,    _______,    _______,   TD(R_BRC),   TD(A_BRC),     TD(S_BRC),    KC_ENT,  _______,   _______,
       _______, _______,  _______,  _______, _______,      _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, _______,
-      _______,    _______,         _______,         KC_LSFT,         _______,   _______,      _______,   _______, _______,  _______, RESET
+      _______,    _______,         _______,         _______,         KC_LSFT,   _______,      _______,   _______, _______,  _______, RESET
       )
 };
