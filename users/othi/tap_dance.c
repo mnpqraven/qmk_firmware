@@ -203,6 +203,7 @@ void dance_ALT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
     }
     xtap_state.state = 0;
 }
+
 // SFT_NM
 void dance_SFT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
@@ -233,7 +234,6 @@ void dance_SFT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
             break;
     }
 }
-
 void dance_SFT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
@@ -303,6 +303,7 @@ void dance_A_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
     xtap_state.state = 0;
 }
+
 // S_BRC abbv. square brackets []
 void dance_S_BRC_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
@@ -317,6 +318,7 @@ void dance_S_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP: unregister_code(KC_LBRC); unregister_code(KC_RBRC); unregister_code(KC_LEFT); break;
     }
 }
+
 // R_BRC abbv. round brackets ()
 void dance_R_BRC_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
@@ -332,6 +334,7 @@ void dance_R_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
     xtap_state.state = 0;
 }
+
 // QUOT abbv. quotation marks '' ""
 void dance_QUOT_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
@@ -345,10 +348,6 @@ void dance_QUOT_finished(qk_tap_dance_state_t *state, void *user_data) {
                              clear_keyboard();
                          }
                          tap_code(KC_LEFT);
-                         if (shift_pressed) {
-                             //goes back to shifted as we are still holding down SFT_NM
-                             register_code(KC_LSFT);
-                         }
                          break;
     }
 }
@@ -357,6 +356,37 @@ void dance_QUOT_reset(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: unregister_code(KC_LSFT); unregister_code(KC_QUOT); break;
     }
     xtap_state.state = 0;
+    if (shift_pressed) {
+        //goes back to shifted as we are still holding down SFT_NM
+        register_code(KC_LSFT);
+    }
+}
+
+//GRV abbv. grave marks `` ~~
+void dance_GRV_finished(qk_tap_dance_state_t *state, void *user_data) {
+    xtap_state.state = cur_dance(state);
+    shift_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)));
+    switch (xtap_state.state) {
+        case SINGLE_TAP: register_code(KC_GRV); break;
+        case DOUBLE_TAP: tap_code(KC_GRV); tap_code(KC_GRV);
+                         if (shift_pressed) { //checks if Shift is held
+                             //unregister_mods(MOD_BIT(KC_LSFT)); //this doesn't work, further testing required
+                             //this is to remove the currently held mod key so pressing left won't select the right quote
+                             clear_keyboard();
+                         }
+                         tap_code(KC_LEFT);
+                         break;
+    }
+}
+void dance_GRV_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state.state) {
+        case SINGLE_TAP: unregister_code(KC_LSFT); unregister_code(KC_GRV); break;
+    }
+    xtap_state.state = 0;
+    if (shift_pressed) {
+        //goes back to shifted as we are still holding down SFT_NM
+        register_code(KC_LSFT);
+    }
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -368,6 +398,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [A_BRC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL,dance_A_BRC_finished, dance_A_BRC_reset),
     [S_BRC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL,dance_S_BRC_finished, dance_S_BRC_reset),
     [R_BRC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL,dance_R_BRC_finished, dance_R_BRC_reset),
-    [QUOT]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_QUOT_finished, dance_QUOT_reset)
+    [QUOT]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_QUOT_finished, dance_QUOT_reset),
+    [GRV]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_GRV_finished, dance_GRV_reset)
 };
 
