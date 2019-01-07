@@ -27,6 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#ifdef RGBLIGHT_ENABLE
 //#include "rgblight.h"
 //#endif
+
+//uncomment the line for board being flashed
+//#define KBD6X //specific boards are KBD6X
+
 typedef union {
   uint32_t raw;
   struct {
@@ -75,14 +79,18 @@ enum tap_dancers {
   A_BRC,
   QUOT,
   GRV,
+  TEST,
 };
 
 //Default RGB Color
 #ifdef RGBLIGHT_ENABLE
-  //cyan color
+//azure 186, 102, 255
+//blue 240, 255, 255
+//red 0, 255, 255
   #define LIGHT_DEBOUNCE 75
-  #define OTHI_DEFAULT_R 0
+
+  #define OTHI_DEFAULT_R 240
   #define OTHI_DEFAULT_G 255
   #define OTHI_DEFAULT_B 255
-  #define OTHI_DEFAULT_MODE RGBLIGHT_MODE_BREATHING
+  #define OTHI_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
 #endif
