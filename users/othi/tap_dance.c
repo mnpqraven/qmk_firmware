@@ -1,4 +1,7 @@
 #include "othi.h"
+#ifdef RGBLIGHT_ENABLE
+#include "rgb_light.h"
+#endif
 
 static uint8_t shift_pressed;
 enum {
@@ -113,6 +116,7 @@ void dance_CTL_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
     }
     xtap_state.state = 0;
 }
+
 // GUI_NM
 void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
@@ -125,7 +129,8 @@ void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_HOLD:
             register_code(KC_LGUI);
 #ifdef RGBLIGHT_ENABLE
-            rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1);
+            rgblight_mode_noeeprom(1);
+            rgblight_sethsv_noeeprom_user(300,255,255);
 #endif
             break;
         case DOUBLE_HOLD:
@@ -156,6 +161,7 @@ void dance_GUI_NM_each (qk_tap_dance_state_t *state, void *user_data) {
         tap_code(KC_TAB);
     }
 }
+
 // ALT_NM
 void dance_ALT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
@@ -175,7 +181,8 @@ void dance_ALT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
             register_code (KC_LCTL);
             layer_on(NM_MODE);
 #ifdef RGBLIGHT_ENABLE
-            rgblight_sethsv_noeeprom_orange(); rgblight_mode_noeeprom(1);
+            rgblight_mode_noeeprom(1);
+            rgblight_sethsv_noeeprom_user(39,255,255); //orange
 #endif //RGBLIGHT_ENABLE
     }
 }
@@ -217,7 +224,8 @@ void dance_SFT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_HOLD:
             register_code (KC_LSFT);
 #ifdef RGBLIGHT_ENABLE
-            rgblight_sethsv_noeeprom_orange(); rgblight_mode_noeeprom(1);
+            rgblight_mode_noeeprom(1);
+            rgblight_sethsv_noeeprom_user(39,255,255); //orange
 #endif
             break;
         case DOUBLE_HOLD:
@@ -229,7 +237,8 @@ void dance_SFT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
             register_code (KC_LCTL);
             layer_on(NM_MODE);
 #ifdef RGBLIGHT_ENABLE
-            rgblight_sethsv_noeeprom_yellow(); rgblight_mode_noeeprom(1);
+            rgblight_mode_noeeprom(1);
+            rgblight_sethsv_noeeprom_user(60,255,255); //yellow
 #endif
             break;
     }
