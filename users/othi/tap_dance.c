@@ -83,7 +83,8 @@ void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: register_code(KC_LCTL); break;
         case SINGLE_HOLD: register_code(KC_LCTL);
 #ifdef RGBLIGHT_ENABLE
-                          rgblight_sethsv_noeeprom_azure(); rgblight_mode_noeeprom(1);
+                          rgblight_mode_noeeprom(1);
+                          rgblight_sethsv_noeeprom_user(186,102,255);
 #endif
                           break;
         case DOUBLE_HOLD: register_code (KC_LCTL);
@@ -123,9 +124,6 @@ void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
             tap_code(KC_TAB); break;
-        case DOUBLE_TAP: //befor SINGLE_HOLD to avoid light flicker
-            register_code (KC_LGUI);
-            tap_code(KC_TAB); break;
         case SINGLE_HOLD:
             register_code(KC_LGUI);
 #ifdef RGBLIGHT_ENABLE
@@ -133,9 +131,16 @@ void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
             rgblight_sethsv_noeeprom_user(300,255,255);
 #endif
             break;
+        case DOUBLE_TAP: //befor SINGLE_HOLD to avoid light flicker
+            register_code (KC_LGUI);
+            tap_code(KC_TAB); break;
         case DOUBLE_HOLD:
             register_code (KC_LGUI);
-            layer_on(NM_MODE); break;
+#ifdef RGBLIGHT_ENABLE
+            rgblight_mode_noeeprom(1);
+            rgblight_sethsv_noeeprom_user(300,255,255);
+#endif
+            break;
     }
 }
 void dance_GUI_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
