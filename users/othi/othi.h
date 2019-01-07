@@ -70,13 +70,11 @@ enum tap_dancers {
   ALT_NM,
   SFT_NM,
   LANG_IN,
-  X_CTL,  //QMK example of quad function tap dance, sends x/control/esc/alt respectively on tap/hold/double tap/double hold
   R_BRC,
   S_BRC,
   A_BRC,
   QUOT,
   GRV,
-  TEST,
 };
 
 //Default RGB Color
