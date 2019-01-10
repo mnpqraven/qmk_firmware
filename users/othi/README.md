@@ -26,7 +26,7 @@
 
 - **ACCENT + ACCENT_CAP:**
 
-	Function row and Unicode characters
+	Function keys on the numrow and Unicode characters
 
 - **FNUM**
 
