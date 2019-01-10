@@ -316,6 +316,7 @@ void dance_A_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP: unregister_code(KC_LBRC); unregister_code(KC_RBRC); unregister_code(KC_LEFT); break;
     }
     xtap_state.state = 0;
+    layer_off(BRCKS);
 }
 
 // S_BRC abbv. square brackets []
@@ -331,6 +332,8 @@ void dance_S_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: unregister_code(KC_LBRC); break;
         case DOUBLE_TAP: unregister_code(KC_LBRC); unregister_code(KC_RBRC); unregister_code(KC_LEFT); break;
     }
+    xtap_state.state = 0;
+    layer_off(BRCKS);
 }
 
 // R_BRC abbv. round brackets ()
@@ -347,6 +350,7 @@ void dance_R_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP: unregister_code(KC_9); unregister_code(KC_0); unregister_code(KC_LEFT); break;
     }
     xtap_state.state = 0;
+    layer_off(BRCKS);
 }
 
 // QUOT abbv. quotation marks '' ""
@@ -374,6 +378,7 @@ void dance_QUOT_reset(qk_tap_dance_state_t *state, void *user_data) {
         //goes back to shifted as we are still holding down SFT_NM
         register_code(KC_LSFT);
     }
+    layer_off(BRCKS);
 }
 
 //GRV abbv. grave marks `` ~~
@@ -401,8 +406,56 @@ void dance_GRV_reset(qk_tap_dance_state_t *state, void *user_data) {
         //goes back to shifted as we are still holding down SFT_NM
         register_code(KC_LSFT);
     }
+    layer_off(BRCKS);
 }
 
+//GUI: i3 workshop swap, GUI + Shift on DOUBLE_HOLD, else GUI
+void dance_GUI_finished(qk_tap_dance_state_t *state, void *user_data) {
+    xtap_state.state = cur_dance(state);
+    shift_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)));
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            register_code(KC_LGUI);
+            break;
+        case DOUBLE_TAP: register_code(KC_LGUI);
+                         tap_code(KC_TAB);
+                         unregister_code(KC_LGUI);
+                         break;
+        case DOUBLE_HOLD:
+                         register_code(KC_LGUI);
+                         register_code(KC_LSFT);
+#ifdef RGBLIGHT_ENABLE
+                 rgblight_mode_noeeprom(1);
+                 rgblight_sethsv_noeeprom_user(39,255,255); //orange
+#endif
+                         break;
+        default: register_code(KC_LGUI);
+#ifdef RGBLIGHT_ENABLE
+                 rgblight_mode_noeeprom(1);
+                 rgblight_sethsv_noeeprom_user(300,255,255); //magenta
+#endif
+                 break;
+
+    }
+}
+void dance_GUI_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state.state) {
+        case DOUBLE_HOLD:
+            unregister_code(KC_LGUI);
+            unregister_code(KC_LSFT);
+#ifdef RGBLIGHT_ENABLE
+            rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B); rgblight_mode_noeeprom(OTHI_DEFAULT_MODE);
+#endif
+            break;
+        default:
+            unregister_code(KC_LGUI);
+#ifdef RGBLIGHT_ENABLE
+            rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B); rgblight_mode_noeeprom(OTHI_DEFAULT_MODE);
+#endif
+            break;
+    }
+    xtap_state.state = 0;
+}
 qk_tap_dance_action_t tap_dance_actions[] = {
     [CTL_NM] = ACTION_TAP_DANCE_FN_ADVANCED (dance_CTL_NM_each, dance_CTL_NM_finished, dance_CTL_NM_reset),
     [GUI_NM] = ACTION_TAP_DANCE_FN_ADVANCED (dance_GUI_NM_each, dance_GUI_NM_finished, dance_GUI_NM_reset),
@@ -413,6 +466,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [S_BRC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL,dance_S_BRC_finished, dance_S_BRC_reset),
     [R_BRC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL,dance_R_BRC_finished, dance_R_BRC_reset),
     [QUOT]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_QUOT_finished, dance_QUOT_reset),
-    [GRV]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_GRV_finished, dance_GRV_reset)
+    [GRV]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_GRV_finished, dance_GRV_reset),
+    [GUI]  = ACTION_TAP_DANCE_FN_ADVANCED(dance_GUI_NM_each, dance_GUI_finished, dance_GUI_reset)
 };
 
