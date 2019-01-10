@@ -63,6 +63,11 @@ uint32_t layer_state_set_user(uint32_t state) {
                 rgblight_mode_noeeprom(1);
                 rgblight_sethsv_noeeprom_user(300,255,255); //magenta
             } break;
+        case BRCKS:
+            if (user_config.rgb_layer_change) {
+                rgblight_mode_noeeprom(1);
+                rgblight_sethsv_noeeprom_user(0,0,255); //magenta
+            } break;
         case FNUM: break; //FNUM does not interrult breathing
         default: //for default and other layers, to change it go to othi.h
             if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B);
@@ -71,6 +76,6 @@ uint32_t layer_state_set_user(uint32_t state) {
     return state;
 }
 
-void matrix_scan_user(void) {
-
-}
+//void matrix_scan_user(void) {
+//
+//}
