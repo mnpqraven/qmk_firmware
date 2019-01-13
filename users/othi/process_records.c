@@ -2,41 +2,36 @@
 
 uint16_t key_timer;
 static uint8_t mods_pressed;
+static uint8_t shifted;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MT(MOD_LGUI,KC_TAB):
+        case DE_AE:
+            shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
             if (record->event.pressed) {
-                key_timer = timer_read();
-                register_code(KC_LGUI);
-                _delay_ms(LIGHT_DEBOUNCE);
-#ifdef RGBLIGHT_ENABLE
-                rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1);
-#endif
-            } else {
-                unregister_code(KC_LGUI);
-#ifdef RGBLIGHT_ENABLE
-                rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_B, OTHI_DEFAULT_B); rgblight_mode_noeeprom(OTHI_DEFAULT_MODE);
-#endif
-                if (timer_elapsed(key_timer) < TAPPING_TERM) {
-                    tap_code(KC_TAB);
+                if (shifted) {
+                    send_unicode_hex_string("00C4");
+                } else {
+                    send_unicode_hex_string("00E4");
                 }
             }
             return false; break;
-        case MT(MOD_LCTL,KC_BSPC):
+        case DE_OE:
+            shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
             if (record->event.pressed) {
-                key_timer = timer_read();
-                register_code(KC_LCTL);
-                _delay_ms(LIGHT_DEBOUNCE);
-#ifdef RGBLIGHT_ENABLE
-                rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1);
-#endif
-            } else {
-                unregister_code(KC_LCTL);
-#ifdef RGBLIGHT_ENABLE
-                rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_B, OTHI_DEFAULT_B); rgblight_mode_noeeprom(OTHI_DEFAULT_MODE);
-#endif
-                if (timer_elapsed(key_timer) < TAPPING_TERM) {
-                    tap_code(KC_BSPC);
+                if (shifted) {
+                    send_unicode_hex_string("00D6");
+                } else {
+                    send_unicode_hex_string("00F6");
+                }
+            }
+            return false; break;
+        case DE_UE:
+            shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
+            if (record->event.pressed) {
+                if (shifted) {
+                    send_unicode_hex_string("00DC");
+                } else {
+                    send_unicode_hex_string("00FC");
                 }
             }
             return false; break;
@@ -46,13 +41,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                                          |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
             if (record->event.pressed) {
                 key_timer = timer_read();
-                layer_on(FNUM);
-                //rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1);
+                layer_on(ACCENT);
             } else {
-                layer_off(FNUM);
-#ifdef RGBLIGHT_ENABLE
-                //rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_B, OTHI_DEFAULT_B); rgblight_mode_noeeprom(OTHI_DEFAULT_MODE);
-#endif
+                layer_off(ACCENT);
                 if (timer_elapsed(key_timer) < TAPPING_TERM) {
                     if (mods_pressed) {
                         tap_code(KC_GRV);
