@@ -58,8 +58,7 @@ enum my_keycodes {
 #define VI_MODE 3
 #define FNUM 4
 #define ACCENT 5
-#define ACCENT_CAP 6
-#define BRCKS 7
+#define BRCKS 6
 
 //Unicode list
 //DE_AE     UC(0x00E4)
@@ -91,7 +90,7 @@ enum tap_dancers {
 //red 0, 255, 255
   #define LIGHT_DEBOUNCE 75
 
-  #define OTHI_DEFAULT_R 240
+  #define OTHI_DEFAULT_R 0
   #define OTHI_DEFAULT_G 255
   #define OTHI_DEFAULT_B 255
   #define OTHI_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
