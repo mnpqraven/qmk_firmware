@@ -46,6 +46,10 @@ enum my_keycodes {
   RGB_LYR,
   CL_LGUI,
   F_ESC,
+  DE_AE,
+  DE_SS,
+  DE_OE,
+  DE_UE,
 };
 
 //Layers Definition
@@ -57,14 +61,14 @@ enum my_keycodes {
 #define ACCENT_CAP 6
 #define BRCKS 7
 
-//Unicode Definitions
-#define DE_AE     UC(0x00E4)
-#define DE_SS     UC(0x00DF)
-#define DE_OE     UC(0x00F6)
-#define DE_UE     UC(0x00FC)
-#define DE_AE_CAP UC(0x00C4)
-#define DE_OE_CAP UC(0x00D6)
-#define DE_UE_CAP UC(0x00DC)
+//Unicode list
+//DE_AE     UC(0x00E4)
+//DE_SS     UC(0x00DF)
+//DE_OE     UC(0x00F6)
+//DE_UE     UC(0x00FC)
+//DE_AE_CAP UC(0x00C4)
+//DE_OE_CAP UC(0x00D6)
+//DE_UE_CAP UC(0x00DC)
 
 //Tap Dance Keycodes
 enum tap_dancers {
@@ -72,7 +76,6 @@ enum tap_dancers {
   GUI_NM,
   ALT_NM,
   SFT_NM,
-  LANG_IN,
   R_BRC,
   S_BRC,
   A_BRC,

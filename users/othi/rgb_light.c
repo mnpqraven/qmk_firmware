@@ -53,11 +53,11 @@ uint32_t layer_state_set_user(uint32_t state) {
                 rgblight_mode_noeeprom(1);
                 rgblight_sethsv_noeeprom_user(39,255,255); //orange
             } break;
-        case ACCENT:
-            if (user_config.rgb_layer_change) {
-                rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom_user(0,0,255); //white
-            } break;
+        case ACCENT: break;
+            //if (user_config.rgb_layer_change) {
+            //    rgblight_mode_noeeprom(1);
+            //    rgblight_sethsv_noeeprom_user(0,0,255); //white
+            //} break;
         case ACCENT_CAP:
             if (user_config.rgb_layer_change) {
                 rgblight_mode_noeeprom(1);
