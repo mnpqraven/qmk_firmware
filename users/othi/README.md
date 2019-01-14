@@ -1,5 +1,9 @@
 ## Othi's User-defined configs
 
+###TODO:
+- Led in "/home/othi/qmk_firmware/tmk_core/protocol/arm_atsam/led_matrix.c:L409" and backlight support for upcoming Zeal60 PCBs
+- Check for EEPROM writing leaks in own's userspace codebase
+
 ### Goals
 - Colemak layout. If you don't use Colemak then you'll need to also change the arrow key bindigns in other layers
 
