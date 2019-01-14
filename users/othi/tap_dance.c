@@ -433,6 +433,58 @@ void dance_GUI_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 }
 
+// _T abbv.
+void dance_T_finished(qk_tap_dance_state_t *state, void *user_data) {
+    xtap_state.state = cur_dance(state);
+    switch (xtap_state.state) {
+        case SINGLE_TAP: register_code(KC_T); break;
+        case DOUBLE_TAP: tap_code(KC_T); register_code(KC_T); break;
+        case DOUBLE_SINGLE_TAP: tap_code(KC_T); register_code(KC_T); break;
+        case DOUBLE_HOLD: layer_on(BRCKS); break;
+    }
+}
+void dance_T_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state.state) {
+        default: unregister_code(KC_T); break;
+    }
+    xtap_state.state = 0;
+    layer_off(BRCKS);
+}
+void dance_T_each(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 3) {
+        tap_code(KC_T);
+        tap_code(KC_T);
+    }
+    if (state->count > 2) {
+        tap_code(KC_T);
+    }
+}
+// _N abbv.
+void dance_N_finished(qk_tap_dance_state_t *state, void *user_data) {
+    xtap_state.state = cur_dance(state);
+    switch (xtap_state.state) {
+        case SINGLE_TAP: register_code(KC_N); break;
+        case DOUBLE_TAP: tap_code(KC_N); register_code(KC_N); break;
+        case DOUBLE_SINGLE_TAP: tap_code(KC_N); register_code(KC_N); break;
+        case DOUBLE_HOLD: layer_on(BRCKS); break;
+    }
+}
+void dance_N_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state.state) {
+        default: unregister_code(KC_N); break;
+    }
+    xtap_state.state = 0;
+    layer_off(BRCKS);
+}
+void dance_N_each(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 3) {
+        tap_code(KC_N);
+        tap_code(KC_N);
+    }
+    if (state->count > 2) {
+        tap_code(KC_N);
+    }
+}
 qk_tap_dance_action_t tap_dance_actions[] = {
     [CTL_NM] = ACTION_TAP_DANCE_FN_ADVANCED (dance_CTL_NM_each, dance_CTL_NM_finished, dance_CTL_NM_reset),
     [GUI_NM] = ACTION_TAP_DANCE_FN_ADVANCED (dance_GUI_NM_each, dance_GUI_NM_finished, dance_GUI_NM_reset),
@@ -443,6 +495,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [R_BRC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL,dance_R_BRC_finished, dance_R_BRC_reset),
     [QUOT]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_QUOT_finished, dance_QUOT_reset),
     [GRV]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_GRV_finished, dance_GRV_reset),
-    [GUI]  = ACTION_TAP_DANCE_FN_ADVANCED(dance_GUI_NM_each, dance_GUI_finished, dance_GUI_reset)
+    [GUI]  = ACTION_TAP_DANCE_FN_ADVANCED(dance_GUI_NM_each, dance_GUI_finished, dance_GUI_reset),
+    [_T]  = ACTION_TAP_DANCE_FN_ADVANCED(dance_T_each,dance_T_finished, dance_T_reset),
+    [_N]  = ACTION_TAP_DANCE_FN_ADVANCED(dance_N_each,dance_N_finished, dance_N_reset)
 };
 

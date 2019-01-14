@@ -81,6 +81,8 @@ enum tap_dancers {
   QUOT,
   GRV,
   GUI,
+  _T,
+  _N,
 };
 
 //Default RGB Color
