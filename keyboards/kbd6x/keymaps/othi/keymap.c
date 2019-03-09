@@ -1,18 +1,3 @@
-/* Copyright 2018 Othi
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 #include QMK_KEYBOARD_H
 #include "othi.h"
 
@@ -39,10 +24,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, TD(CTL_NM),                     TD(ALT_NM),                 KC_SPC,    LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT), _______
       ),
   [ACCENT] = LAYOUT(
+<<<<<<< HEAD
+<<<<<<< HEAD
+      _______,       KC_F1,  KC_F2, KC_F3,    KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,  KC_F12,  _______, _______,
+<<<<<<< HEAD
+      _______,         RGB_TOG,    RGB_MODE_PLAIN,  _______,    _______,    _______,    _______,    _______,    DE_UE,    _______,    _______,     _______, _______, _______,
+      _______,            DE_AE,    UC_Z,    DE_SS,      _______,    _______,    _______,   _______,   _______,     _______,    DE_OE,  _______, _______,
+=======
+      _______,         RGB_TOG,    RGB_LYR,  RGB_RMOD,    RGB_MOD,    _______,    _______,    _______,    DE_UE,    _______,    _______,     _______, _______, _______,
+      _______,            DE_AE,    _______,    DE_SS,      _______,    _______,    _______,   _______,   _______,     _______,    DE_OE,  _______, _______,
+>>>>>>> fixed some lines, better rgb calls, now default layer color can be
+      OSL(ACCENT_CAP),     _______,  _______, _______,      _______,    _______,    _______,    _______,    _______,    _______,        _______, _______, TO(CL),
+=======
+      _______,       KC_F1,  KC_F2, KC_F3,    KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,  KC_F12,  _______, KC_CAPS,
+=======
       _______,       KC_F1,  KC_F2, KC_F3,    KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,  KC_F12,  KC_CAPS, _______,
+>>>>>>> new tap dance on T and N for easier bracket layer
       _______,         RGB_TOG,    RGB_LYR,  RGB_RMOD,    RGB_MOD,    _______,    _______,    _______,    DE_UE,    _______,    _______,     _______, _______, _______,
       _______,            DE_AE,    _______,    DE_SS,      _______,    _______,    _______,   _______,   _______,     _______,    DE_OE,  _______, _______,
       KC_LSFT,     _______,  _______, _______,      _______,    _______,    _______,    _______,    _______,    _______,        _______, _______, TO(CL),
+>>>>>>> update unicode and clean up process_records
       _______,             _______,         _______,            _______,         _______, _______,  _______
       ),
   [BRCKS] = LAYOUT(

@@ -16,8 +16,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 #include "quantum.h"
+<<<<<<< HEAD
+=======
 #include "eeprom.h"
 #include "process_records.h"
+>>>>>>> move LIGHT_DEBOUNCE to othi.h
 
 //i don't think i need this ?
 //TODO: test rgb without this snippet
