@@ -93,16 +93,16 @@ void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
 }
 void dance_CTL_NM_each (qk_tap_dance_state_t *state, void *user_data) {
     //version 1: 1st backspace starts at double tap
-    if (state->count >= 2) {
-        tap_code(KC_BSPC);
-    }
-    //version2: double tap produces 2 backspaces, so muscle memory remains but you might have to retype a character
-    //if (state->count == 2) {
-    //tap_code(KC_BSPC);
-    //tap_code(KC_BSPC);
-    //} else if (state->count > 2) {
-    //tap_code(KC_BSPC);
+    //if (state->count >= 2) {
+    //    tap_code(KC_BSPC);
     //}
+    //version2: double tap produces 2 backspaces, so muscle memory remains but you might have to retype a character
+    if (state->count == 2) {
+    tap_code(KC_BSPC);
+    tap_code(KC_BSPC);
+    } else if (state->count > 2) {
+    tap_code(KC_BSPC);
+    }
 }
 void dance_CTL_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
@@ -391,7 +391,7 @@ void dance_GUI_finished(qk_tap_dance_state_t *state, void *user_data) {
     shift_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)));
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            register_code(KC_LGUI);
+            register_code(KC_TAB);
             break;
         case DOUBLE_TAP: register_code(KC_LGUI);
                          tap_code(KC_TAB);
@@ -399,7 +399,7 @@ void dance_GUI_finished(qk_tap_dance_state_t *state, void *user_data) {
                          break;
         case DOUBLE_HOLD:
                          register_code(KC_LGUI);
-                         register_code(KC_LSFT);
+                         //register_code(KC_LSFT);
 #ifdef RGBLIGHT_ENABLE
                  rgblight_mode_noeeprom(1);
                  rgblight_sethsv_noeeprom_user(39,255,255); //orange
@@ -416,9 +416,11 @@ void dance_GUI_finished(qk_tap_dance_state_t *state, void *user_data) {
 }
 void dance_GUI_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
+        case SINGLE_TAP:
+            unregister_code(KC_TAB);
         case DOUBLE_HOLD:
             unregister_code(KC_LGUI);
-            unregister_code(KC_LSFT);
+            //unregister_code(KC_LSFT);
 #ifdef RGBLIGHT_ENABLE
             rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B); rgblight_mode_noeeprom(OTHI_DEFAULT_MODE);
 #endif

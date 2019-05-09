@@ -47,6 +47,7 @@ enum my_keycodes {
   DE_SS,
   DE_OE,
   DE_UE,
+  TEST,
 };
 
 //Layers Definition
@@ -56,6 +57,7 @@ enum my_keycodes {
 #define FNUM 4
 #define ACCENT 5
 #define BRCKS 6
+#define QTY 7
 
 //Unicode list
 //DE_AE     UC(0x00E4)
@@ -93,4 +95,6 @@ enum tap_dancers {
   #define OTHI_DEFAULT_G 255
   #define OTHI_DEFAULT_B 255
   #define OTHI_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
+#else
+  #define LIGHT_DEBOUNCE 1
 #endif
