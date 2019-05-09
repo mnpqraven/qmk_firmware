@@ -19,25 +19,25 @@ void rgblight_sethsv_eeprom_helper_user(uint16_t hue, uint8_t sat, uint8_t val, 
       // same static color
       LED_TYPE tmp_led;
       sethsv(hue, sat, val, &tmp_led);
-      if (strcmp(QMK_KEYBOARD, "kbd6x") != 0) {
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,0); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,1); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,6); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,7); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,8); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,9); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,14); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,15); wait_ms(1);
-      } else {
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,1); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,2); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,3); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,4); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,8); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,9); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,10); wait_ms(1);
-      rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,11); wait_ms(1);
-      }
+      //if (strcmp(QMK_KEYBOARD, "kbd6x") != 0) {
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,0); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,1); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,6); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,7); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,8); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,9); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,14); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,15); wait_ms(1);
+      //} else {
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,1); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,2); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,3); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,4); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,8); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,9); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,10); wait_ms(1);
+      //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,11); wait_ms(1);
+      //}
     }
 }
 uint32_t layer_state_set_user(uint32_t state) {

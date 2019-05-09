@@ -28,12 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,          _______,    LCTL(KC_RGHT),  _______,    _______,    _______,    _______,    KC_UP,    KC_PGUP,    _______,    _______,     _______, TG(CL), KC_BSPC,
       _______,            KC_LEFT,    _______,    KC_RGHT,      _______,    KC_PGDN,    KC_LEFT,   KC_DOWN,   KC_RGHT,     _______,    KC_ENT,  KC_QUOT, KC_LGUI,
       KC_LSFT,_______,    _______,    _______,    _______,      _______,    LCTL(KC_LEFT),    _______,    _______,    _______,    _______,    _______,    TG(VI_MODE), TO(CL),
-<<<<<<< HEAD
       KC_LCTL,    CL_LGUI,         KC_LALT,         _______,         KC_SPC,    _______,      KC_LALT,   KC_LGUI, _______,  KC_DOWN, RESET
-=======
-      KC_LCTL,      CL_LGUI,           KC_LALT,            _______,         KC_SPC,    _______,      _______, _______,         _______,  _______,     RESET
-
->>>>>>> dz60 keymap update
       ),
   [FNUM] = LAYOUT(
       _______,       KC_F1,  KC_F2, KC_F3,    KC_F4,    KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10,    KC_F11,  KC_F12,  _______, KC_CAPS,
