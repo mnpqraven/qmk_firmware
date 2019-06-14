@@ -5,6 +5,11 @@ static uint8_t mods_pressed;
 static uint8_t shifted;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+//        case TEST:
+//            if (record->event.pressed) {
+//                send_string(uni);
+//            }
+//            return false; break;
         case DE_AE:
             shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
             if (record->event.pressed) {
@@ -33,6 +38,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     send_unicode_hex_string("00FC");
                 }
+            }
+            return false; break;
+        case DE_SS:
+            shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
+            if (record->event.pressed) {
+                    send_unicode_hex_string("00DF");
             }
             return false; break;
         case F_ESC:

@@ -93,16 +93,16 @@ void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
 }
 void dance_CTL_NM_each (qk_tap_dance_state_t *state, void *user_data) {
     //version 1: 1st backspace starts at double tap
-    if (state->count >= 2) {
-        tap_code(KC_BSPC);
-    }
-    //version2: double tap produces 2 backspaces, so muscle memory remains but you might have to retype a character
-    //if (state->count == 2) {
-    //tap_code(KC_BSPC);
-    //tap_code(KC_BSPC);
-    //} else if (state->count > 2) {
-    //tap_code(KC_BSPC);
+    //if (state->count >= 2) {
+    //    tap_code(KC_BSPC);
     //}
+    //version2: double tap produces 2 backspaces, so muscle memory remains but you might have to retype a character
+    if (state->count == 2) {
+    tap_code(KC_BSPC);
+    tap_code(KC_BSPC);
+    } else if (state->count > 2) {
+    tap_code(KC_BSPC);
+    }
 }
 void dance_CTL_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
@@ -280,10 +280,16 @@ void dance_SFT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 // A_BRC abbv. arrow backets {}
 void dance_A_BRC_finished(qk_tap_dance_state_t *state, void *user_data) {
+    shift_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)));
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP: register_code(KC_LSFT); register_code(KC_LBRC); break;
-        case DOUBLE_TAP: register_code(KC_LSFT); register_code(KC_LBRC); register_code(KC_RBRC); unregister_code(KC_LSFT); register_code(KC_LEFT); break;
+        case DOUBLE_TAP: tap_code(KC_LBRC); tap_code(KC_RBRC);
+                         if (shift_pressed) {
+                             clear_keyboard();
+                         }
+                         tap_code(KC_LEFT);
+                         break;
     }
 }
 void dance_A_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
@@ -292,15 +298,22 @@ void dance_A_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP: unregister_code(KC_LBRC); unregister_code(KC_RBRC); unregister_code(KC_LEFT); break;
     }
     xtap_state.state = 0;
-    layer_off(BRCKS);
+    //switches back to layer 0
+    //layer_off(BRCKS);
 }
 
 // S_BRC abbv. square brackets []
 void dance_S_BRC_finished(qk_tap_dance_state_t *state, void *user_data) {
+    shift_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)));
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP: register_code(KC_LBRC); break;
-        case DOUBLE_TAP: register_code(KC_LBRC); register_code(KC_RBRC); register_code(KC_LEFT); break;
+        case DOUBLE_TAP: tap_code(KC_LBRC); tap_code(KC_RBRC);
+                         if (shift_pressed) {
+                             clear_keyboard();
+                         }
+                         tap_code(KC_LEFT);
+                         break;
     }
 }
 void dance_S_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
@@ -309,15 +322,23 @@ void dance_S_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP: unregister_code(KC_LBRC); unregister_code(KC_RBRC); unregister_code(KC_LEFT); break;
     }
     xtap_state.state = 0;
-    layer_off(BRCKS);
+    //switches back to layer 0
+    //layer_off(BRCKS);
 }
 
 // R_BRC abbv. round brackets ()
 void dance_R_BRC_finished(qk_tap_dance_state_t *state, void *user_data) {
+    shift_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)));
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP: register_code(KC_LSFT); register_code(KC_9); break;
-        case DOUBLE_TAP: register_code(KC_LSFT); register_code(KC_9); register_code(KC_0); unregister_code(KC_LSFT); register_code(KC_LEFT); break;
+        case DOUBLE_TAP: register_code(KC_LSFT); register_code(KC_9); register_code(KC_0);
+                         if (shift_pressed) {
+                             clear_keyboard();
+                         }
+                         unregister_code(KC_LSFT);
+                         tap_code(KC_LEFT);
+                         break;
     }
 }
 void dance_R_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
@@ -326,7 +347,8 @@ void dance_R_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP: unregister_code(KC_9); unregister_code(KC_0); unregister_code(KC_LEFT); break;
     }
     xtap_state.state = 0;
-    layer_off(BRCKS);
+    //switches back to layer 0
+    //layer_off(BRCKS);
 }
 
 // QUOT abbv. quotation marks '' ""
@@ -354,7 +376,8 @@ void dance_QUOT_reset(qk_tap_dance_state_t *state, void *user_data) {
         //goes back to shifted as we are still holding down SFT_NM
         register_code(KC_LSFT);
     }
-    layer_off(BRCKS);
+    //switches back to layer 0
+    //layer_off(BRCKS);
 }
 
 //GRV abbv. grave marks `` ~~
@@ -382,7 +405,8 @@ void dance_GRV_reset(qk_tap_dance_state_t *state, void *user_data) {
         //goes back to shifted as we are still holding down SFT_NM
         register_code(KC_LSFT);
     }
-    layer_off(BRCKS);
+    //switches back to layer 0
+    //layer_off(BRCKS);
 }
 
 //GUI: i3 workshop swap, GUI + Shift on DOUBLE_HOLD, else GUI
@@ -391,7 +415,7 @@ void dance_GUI_finished(qk_tap_dance_state_t *state, void *user_data) {
     shift_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)));
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            register_code(KC_LGUI);
+            register_code(KC_TAB);
             break;
         case DOUBLE_TAP: register_code(KC_LGUI);
                          tap_code(KC_TAB);
@@ -399,7 +423,7 @@ void dance_GUI_finished(qk_tap_dance_state_t *state, void *user_data) {
                          break;
         case DOUBLE_HOLD:
                          register_code(KC_LGUI);
-                         register_code(KC_LSFT);
+                         //register_code(KC_LSFT);
 #ifdef RGBLIGHT_ENABLE
                  rgblight_mode_noeeprom(1);
                  rgblight_sethsv_noeeprom_user(39,255,255); //orange
@@ -416,9 +440,11 @@ void dance_GUI_finished(qk_tap_dance_state_t *state, void *user_data) {
 }
 void dance_GUI_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
+        case SINGLE_TAP:
+            unregister_code(KC_TAB);
         case DOUBLE_HOLD:
             unregister_code(KC_LGUI);
-            unregister_code(KC_LSFT);
+            //unregister_code(KC_LSFT);
 #ifdef RGBLIGHT_ENABLE
             rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B); rgblight_mode_noeeprom(OTHI_DEFAULT_MODE);
 #endif
