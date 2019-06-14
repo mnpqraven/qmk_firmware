@@ -280,10 +280,16 @@ void dance_SFT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 // A_BRC abbv. arrow backets {}
 void dance_A_BRC_finished(qk_tap_dance_state_t *state, void *user_data) {
+    shift_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)));
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP: register_code(KC_LSFT); register_code(KC_LBRC); break;
-        case DOUBLE_TAP: register_code(KC_LSFT); register_code(KC_LBRC); register_code(KC_RBRC); unregister_code(KC_LSFT); register_code(KC_LEFT); break;
+        case DOUBLE_TAP: tap_code(KC_LBRC); tap_code(KC_RBRC);
+                         if (shift_pressed) {
+                             clear_keyboard();
+                         }
+                         tap_code(KC_LEFT);
+                         break;
     }
 }
 void dance_A_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
@@ -292,15 +298,22 @@ void dance_A_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP: unregister_code(KC_LBRC); unregister_code(KC_RBRC); unregister_code(KC_LEFT); break;
     }
     xtap_state.state = 0;
-    layer_off(BRCKS);
+    //switches back to layer 0
+    //layer_off(BRCKS);
 }
 
 // S_BRC abbv. square brackets []
 void dance_S_BRC_finished(qk_tap_dance_state_t *state, void *user_data) {
+    shift_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)));
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP: register_code(KC_LBRC); break;
-        case DOUBLE_TAP: register_code(KC_LBRC); register_code(KC_RBRC); register_code(KC_LEFT); break;
+        case DOUBLE_TAP: tap_code(KC_LBRC); tap_code(KC_RBRC);
+                         if (shift_pressed) {
+                             clear_keyboard();
+                         }
+                         tap_code(KC_LEFT);
+                         break;
     }
 }
 void dance_S_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
@@ -309,15 +322,23 @@ void dance_S_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP: unregister_code(KC_LBRC); unregister_code(KC_RBRC); unregister_code(KC_LEFT); break;
     }
     xtap_state.state = 0;
-    layer_off(BRCKS);
+    //switches back to layer 0
+    //layer_off(BRCKS);
 }
 
 // R_BRC abbv. round brackets ()
 void dance_R_BRC_finished(qk_tap_dance_state_t *state, void *user_data) {
+    shift_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)));
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP: register_code(KC_LSFT); register_code(KC_9); break;
-        case DOUBLE_TAP: register_code(KC_LSFT); register_code(KC_9); register_code(KC_0); unregister_code(KC_LSFT); register_code(KC_LEFT); break;
+        case DOUBLE_TAP: register_code(KC_LSFT); register_code(KC_9); register_code(KC_0);
+                         if (shift_pressed) {
+                             clear_keyboard();
+                         }
+                         unregister_code(KC_LSFT);
+                         tap_code(KC_LEFT);
+                         break;
     }
 }
 void dance_R_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
@@ -326,7 +347,8 @@ void dance_R_BRC_reset(qk_tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP: unregister_code(KC_9); unregister_code(KC_0); unregister_code(KC_LEFT); break;
     }
     xtap_state.state = 0;
-    layer_off(BRCKS);
+    //switches back to layer 0
+    //layer_off(BRCKS);
 }
 
 // QUOT abbv. quotation marks '' ""
@@ -354,7 +376,8 @@ void dance_QUOT_reset(qk_tap_dance_state_t *state, void *user_data) {
         //goes back to shifted as we are still holding down SFT_NM
         register_code(KC_LSFT);
     }
-    layer_off(BRCKS);
+    //switches back to layer 0
+    //layer_off(BRCKS);
 }
 
 //GRV abbv. grave marks `` ~~
@@ -382,7 +405,8 @@ void dance_GRV_reset(qk_tap_dance_state_t *state, void *user_data) {
         //goes back to shifted as we are still holding down SFT_NM
         register_code(KC_LSFT);
     }
-    layer_off(BRCKS);
+    //switches back to layer 0
+    //layer_off(BRCKS);
 }
 
 //GUI: i3 workshop swap, GUI + Shift on DOUBLE_HOLD, else GUI

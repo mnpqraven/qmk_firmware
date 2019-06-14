@@ -40,6 +40,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false; break;
+        case DE_SS:
+            shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
+            if (record->event.pressed) {
+                    send_unicode_hex_string("00DF");
+            }
+            return false; break;
         case F_ESC:
             // Check to see what mods are pressed
             mods_pressed = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
