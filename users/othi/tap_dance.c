@@ -131,7 +131,7 @@ void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
             rgblight_sethsv_noeeprom_user(300,255,255);
 #endif
             break;
-        case DOUBLE_TAP: //befor SINGLE_HOLD to avoid light flicker
+        case DOUBLE_TAP: //before SINGLE_HOLD to avoid light flicker
             register_code (KC_LGUI);
             tap_code(KC_TAB); break;
         case DOUBLE_HOLD:
