@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Luiz Ribeiro <luizribeiro@gmail.com>
+Copyright 2019 Kaylyn Bogle
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,11 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __I2C_H__
-#define __I2C_H__
+#pragma once
 
-void i2c_init(void);
-void i2c_set_bitrate(uint16_t bitrate_khz);
-uint8_t i2c_send(uint8_t address, uint8_t *data, uint16_t length);
+#define DEVICE_VER      0x0002
 
-#endif
+#define MATRIX_ROW_PINS { F5, F4, F1, F0, D4 }
+#define MATRIX_COL_PINS { D6, D7, B4, B5, B6, F6, D5 }
+
+#define RGBLED_NUM 6
