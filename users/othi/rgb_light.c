@@ -17,8 +17,8 @@ void rgblight_sethsv_noeeprom_user(uint16_t hue, uint8_t sat, uint8_t val) {
 void rgblight_sethsv_eeprom_helper_user(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom) {
     if (rgblight_config.mode == RGBLIGHT_MODE_STATIC_LIGHT) {
       // same static color
-      LED_TYPE tmp_led;
-      sethsv(hue, sat, val, &tmp_led);
+      //LED_TYPE tmp_led;
+      //sethsv(hue, sat, val, &tmp_led); //appears to be broken
       //if (strcmp(QMK_KEYBOARD, "kbd6x") != 0) {
       //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,0); wait_ms(1);
       //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,1); wait_ms(1);
@@ -28,6 +28,7 @@ void rgblight_sethsv_eeprom_helper_user(uint16_t hue, uint8_t sat, uint8_t val, 
       //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,9); wait_ms(1);
       //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,14); wait_ms(1);
       //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,15); wait_ms(1);
+      //}
       //} else {
       //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,1); wait_ms(1);
       //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,2); wait_ms(1);
@@ -38,6 +39,26 @@ void rgblight_sethsv_eeprom_helper_user(uint16_t hue, uint8_t sat, uint8_t val, 
       //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,10); wait_ms(1);
       //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,11); wait_ms(1);
       //}
+        if (strcmp(QMK_KEYBOARD, "kbd6x") != 0) {
+            sethsv(hue, sat, val, (LED_TYPE *)&led[0]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[1]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[2]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[3]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[4]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[5]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[6]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[7]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[8]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[9]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[10]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[11]); wait_ms(1);
+        } else {
+            sethsv(hue, sat, val, (LED_TYPE *)&led[0]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[7]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[8]); wait_ms(1);
+            sethsv(hue, sat, val, (LED_TYPE *)&led[15]); wait_ms(1);
+        }
+      rgblight_set();
     }
 }
 uint32_t layer_state_set_user(uint32_t state) {
@@ -46,7 +67,7 @@ uint32_t layer_state_set_user(uint32_t state) {
             if (user_config.rgb_layer_change) {
                 //rgblight_sethsv_noeeprom_green();
                 rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom_user(150,255,255); //springgreen
+                rgblight_sethsv_noeeprom_user(140,255,255); //springgreen
             } break;
         case VI_MODE:
             if (user_config.rgb_layer_change) {
@@ -66,7 +87,8 @@ uint32_t layer_state_set_user(uint32_t state) {
         case FNUM: break; //FNUM does not interrult breathing
         default: //for default and other layers, to change it go to othi.h
             if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(OTHI_DEFAULT_R, OTHI_DEFAULT_G, OTHI_DEFAULT_B);
-                rgblight_mode_noeeprom(OTHI_DEFAULT_MODE); } break;
+                rgblight_mode_noeeprom(OTHI_DEFAULT_MODE);
+            } break;
     }
     return state;
 }
