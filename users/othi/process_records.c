@@ -101,6 +101,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return true; break;
+        case TEST:
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD);
+            }
+            return true; break;
         default:
             return true; // Process all other keycodes normally
     }

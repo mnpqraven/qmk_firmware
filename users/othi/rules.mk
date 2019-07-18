@@ -9,4 +9,4 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 	SRC += rgb_light.c
 endif
 EXTRAFLAGS += -flto			# Used to make code smaller
-RGBLIGHT_ENABLE = yes
+

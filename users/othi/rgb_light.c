@@ -16,6 +16,8 @@ void rgblight_sethsv_noeeprom_user(uint16_t hue, uint8_t sat, uint8_t val) {
 
 void rgblight_sethsv_eeprom_helper_user(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom) {
     if (rgblight_config.mode == RGBLIGHT_MODE_STATIC_LIGHT) {
+        //OUTDATED
+        //TODO where broke
       // same static color
       //LED_TYPE tmp_led;
       //sethsv(hue, sat, val, &tmp_led); //appears to be broken
@@ -39,27 +41,43 @@ void rgblight_sethsv_eeprom_helper_user(uint16_t hue, uint8_t sat, uint8_t val, 
       //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,10); wait_ms(1);
       //rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b,11); wait_ms(1);
       //}
-        if (strcmp(QMK_KEYBOARD, "kbd6x") != 0) {
-            sethsv(hue, sat, val, (LED_TYPE *)&led[0]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[1]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[2]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[3]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[4]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[5]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[6]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[7]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[8]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[9]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[10]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[11]); wait_ms(1);
-        } else {
-            sethsv(hue, sat, val, (LED_TYPE *)&led[0]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[7]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[8]); wait_ms(1);
-            sethsv(hue, sat, val, (LED_TYPE *)&led[15]); wait_ms(1);
-        }
-      rgblight_set();
+        //if (strcmp(QMK_KEYBOARD, "kbd6x") != 0) {
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[0]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[1]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[2]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[3]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[4]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[5]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[6]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[7]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[8]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[9]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[10]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[11]); wait_ms(1);
+        //} else if (strcmp(QMK_KEYBOARD, "kbd6x") != 0) {
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[0]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[7]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[8]); wait_ms(1);
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[15]); wait_ms(1);
+        //}
+        //} else if (strcmp(QMK_KEYBOARD, "Space65") != 0) {
+        //    sethsv(hue, sat, val, (LED_TYPE *)&led[0]); wait_ms(1);
+        //sethsv(hue, sat, val, (LED_TYPE *)&led[0]); wait_ms(1);
+        //sethsv(hue, sat, val, (LED_TYPE *)&led[1]); wait_ms(1);
+        //sethsv(hue, sat, val, (LED_TYPE *)&led[2]); wait_ms(1);
+        //rgblight_set();
+        if (strcmp(QMK_KEYBOARD,"gray_studio/space65") == 0) {
+            //rgblight_sethsv_noeeprom(hue, sat, val);
+            rgblight_sethsv_at(hue, sat, val, 0); wait_ms(1);
+            rgblight_sethsv_at(hue, sat, val, 1); wait_ms(1);
+            rgblight_sethsv_at(hue, sat, val, 2); wait_ms(1);
+        } else if (strcmp(QMK_KEYBOARD,"dz60") == 0) {
+            rgblight_sethsv_at(hue, sat, val, 0); wait_ms(1);
+            rgblight_sethsv_at(hue, sat, val, 7); wait_ms(1);
+            rgblight_sethsv_at(hue, sat, val, 8); wait_ms(1);
+            rgblight_sethsv_at(hue, sat, val, 15); wait_ms(1);
     }
+}
 }
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
