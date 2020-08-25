@@ -1,5 +1,7 @@
 #include "othi.h"
 
+user_config_t user_config;
+
 void eeconfig_init_users(void) {
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
   #define OTHI_UNICODE_MODE UC_LNX

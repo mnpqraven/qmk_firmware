@@ -18,7 +18,7 @@ typedef union {
     bool     rgb_layer_change :1;
   };
 } user_config_t;
-user_config_t user_config;
+extern user_config_t user_config;
 
 //Custom Keycodes
 enum my_keycodes {
