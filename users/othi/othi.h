@@ -76,8 +76,8 @@ enum tap_dancers {
 //red 0, 255, 255
   #define LIGHT_DEBOUNCE 75
 
-  #define OTHI_DEFAULT_R 186
-  #define OTHI_DEFAULT_G 102
+  #define OTHI_DEFAULT_R 240
+  #define OTHI_DEFAULT_G 255
   #define OTHI_DEFAULT_B 255
   #define OTHI_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
 #else

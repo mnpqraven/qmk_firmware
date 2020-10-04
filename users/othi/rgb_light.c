@@ -97,6 +97,11 @@ uint32_t layer_state_set_user(uint32_t state) {
                 rgblight_mode_noeeprom(1);
                 rgblight_sethsv_noeeprom_user(0,0,255); //white
             } break;
+        case GAME:
+            if (user_config.rgb_layer_change) {
+                rgblight_mode_noeeprom(1);
+                rgblight_sethsv_noeeprom_user(125,25,125); //white
+            } break;
         case BRCKS:
             if (user_config.rgb_layer_change) {
                 rgblight_mode_noeeprom(1);
